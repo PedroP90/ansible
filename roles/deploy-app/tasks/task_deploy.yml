@@ -1,0 +1,12 @@
+---
+- name: Apply Deployment
+  k8s:
+    definition: "{{ lookup('file', deploy_file_path) }}"
+    state: present
+    kubeconfig: ~/.kube/config
+
+- name: Apply Service
+  k8s:
+    definition: "{{ lookup('file', service_file_path) }}"
+    state: present
+    kubeconfig: ~/.kube/config

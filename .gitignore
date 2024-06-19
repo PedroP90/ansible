@@ -1,0 +1,5 @@
+# carpeta de claves
+ssh-keys
+
+# archivo de hosts
+inventory/hosts.yml

@@ -1,0 +1,17 @@
+---
+- hosts: host1
+  become: true
+  vars:
+    - deploy_file_path: /home/ubuntu/ansible/files/deployapp.yml
+    - service_file_path: /home/ubuntu/ansible/files/serviceapp.yml
+    - ansible_user: ubuntu
+    - arch_mapping:  
+        x86_64: amd64
+        aarch64: arm64
+  roles:
+     - role: kube
+     - role: minikube
+   
+
+
+

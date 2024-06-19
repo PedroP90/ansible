@@ -1,0 +1,27 @@
+---
+- name: Deploy App
+  hosts: host1
+  gather_facts: false
+
+  tasks:
+    - name: Apply Deployment
+      k8s:
+        definition: "{{ lookup('file', 'files/deployapp.yml') }}"
+        state: present
+
+    - name: Apply Service
+      k8s:
+        definition: "{{ lookup('file', 'files/serviceapp.yml') }}"
+        state: present
+
+
+
+
+
+
+    
+    
+
+   
+
+

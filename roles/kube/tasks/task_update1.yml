@@ -1,0 +1,41 @@
+---
+# Install nginx
+- name: Update System
+  apt: # módulo apt  --> ubuntu. Todo en la última versión. Traduce al apt de cualquier sistema
+    name: "*"
+    state: latest
+
+- name: Instalar curl
+  apt:
+      name: curl
+      state: present
+
+- name: Get the stable kubectl version
+  command: curl -L -s https://dl.k8s.io/release/stable.txt
+  register: kubectl_version
+
+- name: Download kubectl binary
+  command: curl -LO "https://dl.k8s.io/release/{{ kubectl_version.stdout }}/bin/linux/amd64/kubectl"
+  args:
+    chdir: /usr/local/bin
+
+- name: Make kubectl binary executable
+  file:
+    path: /usr/local/bin/kubectl
+    mode: '0755'
+
+- name: Ensure kubernetes Python library is installed
+  ansible.builtin.pip:
+    name: kubernetes
+    state: present
+
+
+
+
+
+
+     
+
+    
+
+    

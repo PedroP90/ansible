@@ -1,0 +1,37 @@
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install required packages
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+    state: present
+
+- name: Install pip
+  ansible.builtin.apt:
+    name: python3-pip
+    state: present
+
+- name: Install kubernetes library
+  ansible.builtin.pip:
+    name: kubernetes
+    state: present
+    executable: pip3  # Asegúrate de especificar el ejecutable de pip correcto si es necesario
+
+- name: Get the stable kubectl version
+  command: curl -L -s https://dl.k8s.io/release/stable.txt
+  register: kubectl_version
+
+- name: Download kubectl binary
+  command: curl -LO "https://dl.k8s.io/release/{{ kubectl_version.stdout }}/bin/linux/amd64/kubectl"
+  args:
+    chdir: /usr/local/bin
+
+- name: Make kubectl binary executable
+  file:
+    path: /usr/local/bin/kubectl
+    mode: '0755'

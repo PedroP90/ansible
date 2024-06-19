@@ -1,0 +1,4 @@
+---
+
+- include_tasks: task_kube.yml
+

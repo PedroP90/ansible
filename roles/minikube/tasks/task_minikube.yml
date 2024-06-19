@@ -1,0 +1,17 @@
+
+
+- name: Descargar Minikube
+  get_url:
+    url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    dest: /tmp/minikube-linux-amd64
+    mode: 0755
+
+- name: Instalar binario Minikube
+  command: mv /tmp/minikube-linux-amd64 /usr/local/bin/minikube
+
+- name: Deshabilitar la protección de archivos regulares
+  command: sysctl fs.protected_regular=0
+
+- name: Iniciar clúster 
+  command: minikube start --force
+  become: false
